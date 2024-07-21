@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './App.css'
+import Navbar from './components/navbar/Navbar';
+import {Routes, Route} from "react-router-dom";
+import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
+import Footer from './components/footer/Footer';
+import LoginPopup from './components/LoginPopup/LoginPopup';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Verify from './pages/verify/Verify';
+import MyOrders from './pages/MyOrders/MyOrders';
 
-function App() {
+
+const App = () => {
+
+  const [showLogin, setShowLogin] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+    <div className='app'>
+       <Navbar setShowLogin={setShowLogin} />
+       <Routes>
+          <Route exact path="/" element={<Home/>} />
+          <Route exact path="/cart" element={<Cart/>} />
+          <Route exact path="/order" element={<PlaceOrder/>} />
+          <Route exact path='/verify' element={<Verify/>} />
+          <Route exact path="/myorders" element={<MyOrders/>} />
+       </Routes>
     </div>
-  );
+    <Footer/>
+    </>
+  )
 }
 
 export default App;
